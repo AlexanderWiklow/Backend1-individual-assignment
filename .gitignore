@@ -1,3 +1,5 @@
 server/.env
 
-server/.config.js
+server/config.js
+
+# Individuella Uppgiften 2/TODO-Application/server/.env
