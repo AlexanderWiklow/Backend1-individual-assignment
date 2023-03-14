@@ -15,6 +15,8 @@ exports.register = async (req, res) => {
 
   const { username, password } = validatedUser.value;
 
+  console.log("username", username);
+
   //   const dbUser = users.find((currentUser) => {
   //     return currentUser.username === username;
   //   });
@@ -125,6 +127,7 @@ exports.register = async (req, res) => {
         console.log(error);
         res.sendStatus(500);
       } else {
+        console.log("User created!");
         res.send("User created!");
       }
     });

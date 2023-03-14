@@ -4,11 +4,11 @@ const { pool } = require("../../../config");
 exports.deleteItem = async (req, res) => {
   const listId = parseInt(req.params.listId, 10);
   const itemId = parseInt(req.params.itemId, 10);
-  const userId = req.loggedInUser.id;
+  // const userId = req.loggedInUser.id;
 
-  const query = `DELETE FROM list_item WHERE id = ? AND list_id = ? AND user_id = ?`;
+  const query = `DELETE FROM list_item WHERE id = ? AND list_id = ?`;
 
-  pool.execute(query, [itemId, listId, userId], async (error, result) => {
+  pool.execute(query, [itemId, listId], async (error, result) => {
     if (error) {
       console.log(error);
       res.sendStatus(500);

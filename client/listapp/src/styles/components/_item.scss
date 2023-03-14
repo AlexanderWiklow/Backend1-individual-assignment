@@ -1,0 +1,16 @@
+.todoWrapper {
+  color: black;
+  background-color: salmon;
+  min-height: 2rem;
+  height: auto;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  & ul {
+    padding: 0;
+    & li {
+      list-style: none;
+      text-decoration: none;
+      text-align: left;
+    }
+  }
+}

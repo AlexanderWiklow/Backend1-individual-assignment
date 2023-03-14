@@ -1,12 +1,14 @@
 const { pool } = require("../../../config");
 // används för att få åtkomst till en .env-fil
-const dotenv = require("dotenv");
-dotenv.config();
-// används för att kryptera/dekryptera
-const jwt = require("jsonwebtoken");
-const validatePassword = require("../../middlewares/passwordValidation");
+// const dotenv = require("dotenv");
+// dotenv.config();
 
-// const secret = process.env.SECRET;
+// jwt is a npm package that is used to create and verify tokens
+// tokens are used to verify that the user is logged in
+const jwt = require("jsonwebtoken");
+
+// require the password validation middleware to validate the password when the user logs in with the help of bcrypt compare to compare the password from the request with the password from the database
+const validatePassword = require("../../middlewares/passwordValidation");
 
 const {
   validateUsernamePassword,
@@ -46,12 +48,13 @@ exports.login = async (req, res) => {
 
         // create a token
         const authToken = jwt.sign(copyOfUser, secret, {
-          expiresIn: 120,
+          expiresIn: "24h",
         });
 
         res.cookie("authToken", authToken, {
-          maxAge: 360000,
+          maxAge: 19360000,
           sameSite: "none",
+          secure: true,
           httpOnly: true,
         });
 

@@ -5,13 +5,20 @@ const { pool } = require("../../../config");
 exports.createItem = async (req, res) => {
   //   console.log("list_id: ", list_id);
 
-  const { title, description, completed, list_id } = req.body;
+  const { description, completed, list_id } = req.body;
 
-  const query = `INSERT INTO list_item (title, description, completed, list_id) VALUES (?, ?, ?, ?)`;
+  console.log(
+    " description, completed, list_Id: ",
+    description,
+    completed,
+    list_id
+  );
+
+  const query = `INSERT INTO list_item ( description, completed, list_id) VALUES (?, ?, ?)`;
 
   pool.execute(
     query,
-    [title, description, completed, list_id],
+    [description, completed, list_id],
     async (error, result) => {
       if (error) {
         console.log(error);
