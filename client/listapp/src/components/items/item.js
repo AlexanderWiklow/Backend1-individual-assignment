@@ -1,19 +1,11 @@
-// first file
-
 import { useState, useEffect } from "react";
 
 export default function Items({ listId }) {
-  const [item, setItem] = useState([]);
-  //   const [itemTitle, setItemTitle] = useState("");
+  const [items, setItems] = useState([]);
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
-  const [listName, setListName] = useState("");
-  const [completed, setCompleted] = useState(false);
-  const [todo, setTodo] = useState([]);
   const [editText, setEditText] = useState("");
   const [editing, setEditing] = useState(false);
-
-  console.log("listId", listId);
 
   async function getAllItems() {
     let response = null;
@@ -28,7 +20,7 @@ export default function Items({ listId }) {
       });
     } catch (error) {
       setMessage("Could not make a fetch");
-      setItem([]);
+      setItems([]);
       return;
     }
 
@@ -36,59 +28,37 @@ export default function Items({ listId }) {
       if (response.status === 400) {
         const error = await response.text();
         setMessage(error);
-        setItem([]);
+        setItems([]);
         return;
       }
 
       if (response.status === 404) {
         const error = await response.text();
         setMessage(error);
-        setItem([]);
+        setItems([]);
         return;
       }
 
       if (response.status === 200) {
-        const item = await response.json();
-        // if (list.length > 1) {
-        //   setList(list);
-        // } else {
-        //   setList([list]);
-        // }
-        // setMessage("");
+        const items = await response.json();
 
-        // Sort the list by the created_at timestamp in descending order
-        item.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-        setItem(item);
+        setItems(items);
         setMessage("");
-
-        // const items = await response.json();
-        // if (Array.isArray(items)) {
-        //   setItem(items);
-        // } else {
-        //   setItem([items]);
-        //   console.log(items);
-        // }
-        // setMessage("");
       }
     } catch (error) {
       setMessage("Something went wrong!");
-      setItem([]);
+      setItems([]);
     }
   }
 
   useEffect(() => {
     getAllItems(listId);
-    // handleSubmit(listId);
   }, [listId]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // TODO: Implement functionality to create a new item
-    // 1. Create a new item object
-    // 2. Send a POST request to the server
-    // 3. Update the state of the items array
-    // 4. Clear the input field
 
     let response = null;
 
@@ -100,7 +70,6 @@ export default function Items({ listId }) {
         },
         credentials: "include",
         body: JSON.stringify({
-          //   title: itemTitle,
           description: description,
           completed: false,
           list_id: listId,
@@ -112,6 +81,11 @@ export default function Items({ listId }) {
     }
 
     try {
+      if (description === "") {
+        setMessage("Please enter a description");
+        return;
+      }
+
       if (response.status === 400) {
         const error = await response.text();
         setMessage(error);
@@ -127,8 +101,7 @@ export default function Items({ listId }) {
       }
 
       if (response.status === 200) {
-        setMessage("Item created!");
-        // setItemTitle("");
+        setMessage("item created!");
         setDescription("");
 
         getAllItems(listId); // Refresh the list of list
@@ -138,13 +111,6 @@ export default function Items({ listId }) {
       setMessage("Something went wrong!");
     }
   };
-
-  //   const handleDelete = (id) => {
-  // setItem(item.filter((item) => item.id !== id));
-  // implement logic for deleting a todo item
-  // 1. Send a DELETE request to the server
-  // 2. Update the state of the items array
-  // 3. Clear the input field
 
   async function handleDelete(id) {
     let response = null;
@@ -181,7 +147,7 @@ export default function Items({ listId }) {
       }
 
       if (response.status === 200) {
-        setMessage("Item deleted!");
+        setMessage("item deleted!");
         getAllItems(); // Refresh the list of list
       }
     } catch (Error) {
@@ -189,17 +155,13 @@ export default function Items({ listId }) {
     }
   }
 
-  const handleEditClick = (text) => {
-    setEditing(true);
-    setEditText(text);
+  const handleEditClick = (id) => {
+    setEditing(id);
+    setEditText(items.find((item) => item.id === id).description);
   };
 
   async function handleEditSubmit(id) {
     let response = null;
-
-    console.log("listId::::", listId);
-    console.log("id:::::", id);
-    console.log("editText:::::", editText);
 
     try {
       response = await fetch(
@@ -235,10 +197,8 @@ export default function Items({ listId }) {
         return;
       }
 
-      console.log("response:::::", response.status);
-
       if (response.status === 200) {
-        setMessage("Item edited!");
+        setMessage("item edited!");
         setEditText("");
         getAllItems(listId); // Refresh the list of list
         setEditing(false);
@@ -248,132 +208,54 @@ export default function Items({ listId }) {
     }
   }
 
-  //   async function handleEdit(id) {
-  //     // implement logic for editing a todo item
+  async function handleCheckboxClick(id, completed) {
+    let response = null;
 
-  //     let response = null;
+    try {
+      response = await fetch(
+        `http://localhost:5050/lists/${listId}/items/${id}/completed`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            completed: !completed,
+          }),
+        }
+      );
+    } catch (error) {
+      setMessage("Could not make a fetch");
+      return;
+    }
 
-  //     try {
-  //       response = await fetch(
-  //         `http://localhost:5050/lists/${listId}/items/${id}`,
-  //         {
-  //           method: "PATCH",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           credentials: "include",
-  //           body: JSON.stringify({
-  //             id: id,
-  //             completed: !completed,
-  //             list_id: listId,
-  //           }),
-  //         }
-  //       );
-  //     } catch (error) {
-  //       setMessage("Could not make a fetch");
-  //       console.log("error", error);
-  //     }
+    try {
+      if (response.status === 400) {
+        const error = await response.text();
+        setMessage(error);
+        return;
+      }
 
-  //     try {
-  //       if (response.status === 400) {
-  //         const error = await response.text();
-  //         setMessage(error);
-  //         return;
-  //       }
+      if (response.status === 404) {
+        const error = await response.text();
+        setMessage(error);
+        return;
+      }
 
-  //       if (response.status === 404) {
-  //         const error = await response.text();
-
-  //         setMessage(error);
-
-  //         return;
-  //       }
-
-  //       if (response.status === 200) {
-  //         setMessage("Item edited!");
-  //         getAllItems(); // Refresh the list of list
-  //       }
-  //     } catch (Error) {
-  //       setMessage("Something went wrong!");
-  //     }
-  //   }
-
-  //   const handleEdit = (id) => {
-  //     // implement logic for editing a todo item
-  //   };
-
-  //   const handleCheckboxChange = async (id, completed) => {
-  //     let response = null;
-
-  //     try {
-  //       response = await fetch(
-  //         `http://localhost:5050/lists/${listId}/items/${id}`,
-  //         {
-  //           method: "PATCH",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           credentials: "include",
-  //           body: JSON.stringify({
-  //             id: id,
-  //             completed: !completed,
-  //             list_id: listId,
-  //           }),
-  //         }
-  //       );
-  //     } catch (error) {
-  //       setMessage("Could not make a fetch");
-  //       console.log("error", error);
-  //       return;
-  //     }
-
-  //     try {
-  //       if (response.status === 400) {
-  //         const error = await response.text();
-  //         setMessage(error);
-  //         return;
-  //       }
-
-  //       if (response.status === 404) {
-  //         const error = await response.text();
-
-  //         setMessage(error);
-
-  //         return;
-  //       }
-
-  //       //   if (response.status === 200) {
-  //       //     setMessage("Item updated!");
-  //       //     getAllItems(); // Refresh the list of list
-  //       //   }
-
-  //       if (response.status === 200) {
-  //         setMessage("Item updated!");
-
-  //         // Update the completed state for the item with the given id
-  //         setItem((prevItems) =>
-  //           prevItems.map((item) =>
-  //             item.id === id ? { ...item, completed: !item.completed } : item
-  //           )
-  //         );
-  //       }
-  //     } catch (Error) {
-  //       setMessage("Something went wrong!");
-  //     }
-  //   };
-
-  console.log("All items", item);
+      if (response.status === 200) {
+        setMessage("item updated!");
+        getAllItems(listId);
+      }
+    } catch (error) {
+      setMessage("Something went wrong!");
+    }
+  }
 
   return (
     <>
       <h3>Create a new to do:</h3>
       <form onSubmit={handleSubmit}>
-        {/* <label htmlFor="itemTitle">Title</label>
-        <input
-          type="text"
-          value={itemTitle}
-          onChange={(event) => setItemTitle(event.target.value)}
-        /> */}
         <label htmlFor="description">Text:</label>
         <input
           type="text"
@@ -386,39 +268,41 @@ export default function Items({ listId }) {
         <p>Todos:</p>
         {message ? <p>{message}</p> : null}
         <ul>
-          {item.map((oneItem) => (
-            <li key={oneItem.id}>
-              {/* <span>{oneItem.description}</span> */}
-              {/* <input
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-              /> */}
-
-              {editing ? (
+          {items.map((item) => (
+            <li key={item.id}>
+              {editing === item.id ? (
                 <div>
                   <input
                     value={editText}
                     onChange={(e) => setEditText(e.target.value)}
                   />
-                  <button onClick={() => handleEditSubmit(oneItem.id)}>
+                  <button onClick={() => handleEditSubmit(item.id)}>
                     Submit
                   </button>
                 </div>
               ) : (
                 <div>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={item.completed}
+                    onChange={() =>
+                      handleCheckboxClick(item.id, item.completed)
+                    }
+                  />
 
-                  <span>{oneItem.description}</span>
-                  <button onClick={() => handleEditClick(oneItem.description)}>
+                  {item.completed ? (
+                    <strike>{item.description}</strike>
+                  ) : (
+                    item.description
+                  )}
+                  <button
+                    onClick={() => handleEditClick(item.id, item.description)}
+                  >
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(oneItem.id)}>
-                    Delete
-                  </button>
+                  <button onClick={() => handleDelete(item.id)}>Delete</button>
                 </div>
               )}
-
-              {/* <button onClick={() => handleEdit(oneItem.id)}>Edit</button> */}
             </li>
           ))}
         </ul>

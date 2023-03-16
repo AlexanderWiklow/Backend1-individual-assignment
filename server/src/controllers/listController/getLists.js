@@ -2,7 +2,6 @@ const { pool } = require("../../../config");
 
 exports.getList = (req, res) => {
   const userId = req.loggedInUser.id;
-  //   const listId = parseInt(req.params.listId, 10);
 
   pool.query(
     "SELECT * FROM list WHERE user_id = ?",

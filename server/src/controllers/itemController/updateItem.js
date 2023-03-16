@@ -5,11 +5,7 @@ exports.updateItem = async (req, res) => {
   const listId = parseInt(req.params.listId, 10);
   const itemId = parseInt(req.params.itemId, 10);
 
-  const { description, completed } = req.body;
-
-  console.log("itemId: ", itemId);
-  console.log("description: ", description);
-  console.log("listId: ", listId);
+  const { description } = req.body;
 
   const query = `UPDATE list_item SET description = ?  WHERE id = ? AND list_id = ?`;
 

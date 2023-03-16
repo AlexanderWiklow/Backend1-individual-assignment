@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import Item from "../components/items/item";
-import checkImage from "../../src/assets/check2.png";
+import Friend from "../components/items/Friend";
+import checkImage from "../../src/assets/check1.png";
 
 export default function Items() {
-  const [item, setItem] = useState("");
   const [list, setList] = useState([]);
   const [message, setMessage] = useState("");
   const [listName, setListName] = useState("");
-  const [updatedName, setUpdatedName] = useState("");
 
   async function getAllLists() {
     let response = null;
@@ -41,14 +40,7 @@ export default function Items() {
 
       if (response.status === 200) {
         const list = await response.json();
-        // if (list.length > 1) {
-        //   setList(list);
-        // } else {
-        //   setList([list]);
-        // }
-        // setMessage("");
 
-        // Sort the list by the created_at timestamp in descending order
         list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
         setList(list);
@@ -110,58 +102,6 @@ export default function Items() {
     }
   };
 
-  // async function getAllItems(id, user_id, list_Id) {
-  //   let response = null;
-
-  //   try {
-  //     response = await fetch(`http://localhost:5050/lists/${list_Id}/list`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       credentials: "include",
-  //     });
-  //   } catch (FetchError) {
-  //     setMessage("Could not make a fetch");
-  //     setItem([]);
-  //     return;
-  //   }
-
-  //   try {
-  //     if (response.status === 400) {
-  //       const error = await response.text();
-  //       setMessage(error);
-  //       setItem([]);
-  //       return;
-  //     }
-
-  //     if (response.status === 404) {
-  //       const error = await response.text();
-  //       setMessage(error);
-  //       setItem([]);
-  //       return;
-  //     }
-
-  //     if (response.status === 200) {
-  //       const item = await response.json();
-  //       // if (list.length > 1) {
-  //       //   setList(list);
-  //       // } else {
-  //       //   setList([list]);
-  //       // }
-  //       // setMessage("");
-
-  //       // Sort the list by the created_at timestamp in descending order
-  //       item.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-  //       setItem(item);
-  //       setMessage("");
-  //     }
-  //   } catch (Error) {
-  //     setMessage("Something went wrong!");
-  //   }
-  // }
-
   return (
     <>
       <div className="header">
@@ -179,17 +119,18 @@ export default function Items() {
         <button type="submit">Create list</button>
       </form>
       <div>
-        <h1>Items</h1>
+        <h1>Lists</h1>
         {message ? <p>{message}</p> : null}
         <ul className="listWrapper">
           {list.map((listItem) => (
-            <div className="listCard">
-              <h2 key={listItem.id}>{listItem.name}</h2>
+            <div key={listItem.id} className="listCard">
+              <h2>{listItem.name}</h2>
               <Item listId={listItem.id} />
             </div>
           ))}
         </ul>
       </div>
+      <Friend />
     </>
   );
 }

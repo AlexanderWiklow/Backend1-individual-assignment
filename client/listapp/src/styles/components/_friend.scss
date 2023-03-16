@@ -1,0 +1,29 @@
+.friendListCard {
+  min-height: 10rem;
+  height: auto;
+  max-width: 20rem;
+  min-width: 20rem;
+  background-color: grey;
+  //   gap: 2rem;
+  //   margin: 1rem;
+  color: black;
+  //   background-color: salmon;
+  //   min-height: 2rem;
+  height: auto;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  & ul {
+    padding: 0;
+    & li {
+      list-style: none;
+      text-decoration: none;
+      text-align: left;
+    }
+  }
+}
+
+.recentlyLoggedInUsers {
+  //   background-color: red;
+  text-decoration: none;
+  list-style: none;
+}

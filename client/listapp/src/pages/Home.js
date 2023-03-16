@@ -1,8 +1,7 @@
 // import React from "react";
 // import { Link } from "react-router-dom";
 import { useState } from "react";
-import Navbar from "../components/shared/navbar";
-import check from "../../src/assets/check2.png";
+import check from "../../src/assets/check1.png";
 import { useNavigate } from "react-router-dom";
 
 function Home() {

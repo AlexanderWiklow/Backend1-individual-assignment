@@ -3,7 +3,7 @@ const { pool } = require("../../../config");
 // Create a new list for the authenticated user
 exports.createList = async (req, res) => {
   const { name } = req.body;
-  const userId = 1;
+  const userId = req.loggedInUser.id;
 
   const query = `INSERT INTO list (name, user_id) VALUES (?, ?)`;
 
