@@ -1,4 +1,3 @@
-const { users } = require("../../../database");
 const { pool } = require("../../../config");
 const {
   validateUsernamePassword,

@@ -95,6 +95,7 @@ export default function Items() {
 
       if (response.status === 200) {
         setMessage("List created!");
+        setListName("");
         getAllLists(); // Refresh the list of list
       }
     } catch (Error) {
@@ -110,16 +111,17 @@ export default function Items() {
       </div>
       <h1>Create a new list</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="listName">List name:</label>
+        <label htmlFor="listName"></label>
         <input
           type="text"
           value={listName}
           onChange={(event) => setListName(event.target.value)}
+          placeholder="List name"
         ></input>
         <button type="submit">Create list</button>
       </form>
       <div>
-        <h1>Lists</h1>
+        <h1>Your lists</h1>
         {message ? <p>{message}</p> : null}
         <ul className="listWrapper">
           {list.map((listItem) => (

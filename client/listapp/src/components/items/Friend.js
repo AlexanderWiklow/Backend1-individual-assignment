@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import fetchEndpoint from "../util/api";
 
 export default function Friend() {
   const [friend, setFriend] = useState("");
@@ -6,8 +7,6 @@ export default function Friend() {
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState([]);
   const [friendList, setFriendList] = useState({});
-
-  // Get all items: GET /items
 
   async function getAllFriends() {
     let response = null;
@@ -41,12 +40,6 @@ export default function Friend() {
 
       if (response.status === 200) {
         const friends = await response.json();
-        // if (friends.length > 1) {
-        //   setFriends(friends);
-        // } else {
-        //   setFriends([friends]);
-        // }
-        // setMessage("");
 
         // Sort the list by the created_at timestamp in descending order
         friends.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -145,54 +138,37 @@ export default function Friend() {
   }
 
   async function getFriendList() {
-    let response = null;
-    try {
-      response = await fetch("http://localhost:5050/friends/list", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-    } catch (FetchError) {
-      setMessage("Could not make a fetch");
-      setUsers([]);
+    const response = await fetchEndpoint(
+      "http://localhost:5050/friends/list",
+      "GET",
+      {
+        "Content-Type": "application/json",
+      },
+      "include"
+    );
+
+    if (response.error) {
+      setMessage(response.error);
+      setFriendList({});
       return;
     }
-    try {
-      if (response.status === 400) {
-        const error = await response.text();
-        setMessage(error);
-        setUsers([]);
-        return;
+
+    const friendList = {};
+    const data = response.data;
+    data.forEach((list) => {
+      if (!friendList[list.user_id]) {
+        friendList[list.user_id] = [list];
+      } else {
+        friendList[list.user_id].push(list);
       }
-      if (response.status === 404) {
-        const error = await response.text();
-        setMessage(error);
-        setUsers([]);
-      }
-      if (response.status === 200) {
-        const friendList = {};
-        const data = await response.json();
-        data.forEach((list) => {
-          if (!friendList[list.user_id]) {
-            friendList[list.user_id] = [list];
-          } else {
-            friendList[list.user_id].push(list);
-          }
-        });
-        setFriendList(friendList);
-        setMessage("");
-      }
-    } catch (FetchError) {
-      setMessage("Something went wrong!");
-      setUsers([]);
-    }
+    });
+    setFriendList(friendList);
+    setMessage("");
   }
 
   return (
     <div>
-      <h1>Friends</h1>
+      <h1>Your friends lists</h1>
       <form onSubmit={addFriend}>
         <input
           type="text"
@@ -202,7 +178,6 @@ export default function Friend() {
         />
         <button type="submit">Add friend</button>
       </form>
-      {/* Only shows friends */}
       {friends.map((friend) => (
         <div key={friend.id}>
           <div className="listWrapper">

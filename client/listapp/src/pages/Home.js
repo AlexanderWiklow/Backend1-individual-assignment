@@ -49,6 +49,11 @@ function Home() {
           setMessage(error);
           return;
         }
+        if (response.status === 401) {
+          const error = await response.text();
+          setMessage(error);
+          return;
+        }
         if (response.status === 404) {
           const error = await response.text();
           setMessage(error);
@@ -98,6 +103,9 @@ function Home() {
           setMessage(error);
           return;
         }
+        if (response.status === 409) {
+          setMessage("User already exists!");
+        }
         if (response.status === 200) {
           setMessage("Successful register!");
         }
@@ -105,12 +113,12 @@ function Home() {
         setMessage("Something went wrong!");
       }
 
-      console.log(
-        "Registering with username:",
-        username,
-        "and password:",
-        password
-      );
+      // console.log(
+      //   "Registering with username:",
+      //   username,
+      //   "and password:",
+      //   password
+      // );
     }
   };
 
