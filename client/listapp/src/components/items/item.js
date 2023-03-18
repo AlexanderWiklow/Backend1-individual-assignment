@@ -255,17 +255,18 @@ export default function Items({ listId }) {
   return (
     <>
       <h3>Create a new to do:</h3>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="description">Text:</label>
+      <form className="itemForm" onSubmit={handleSubmit}>
+        <label htmlFor="description"></label>
         <input
           type="text"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
+          placeholder="Description"
         />
         <button type="submit">Create</button>
       </form>
       <div className="todoWrapper">
-        <p>Todos:</p>
+        {/* <p>Todos:</p> */}
         {message ? <p>{message}</p> : null}
         <ul>
           {items.map((item) => (
@@ -281,7 +282,7 @@ export default function Items({ listId }) {
                   </button>
                 </div>
               ) : (
-                <div>
+                <div className="todoItem">
                   <input
                     type="checkbox"
                     checked={item.completed}
@@ -295,12 +296,16 @@ export default function Items({ listId }) {
                   ) : (
                     item.description
                   )}
-                  <button
-                    onClick={() => handleEditClick(item.id, item.description)}
-                  >
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(item.id)}>Delete</button>
+                  <div className="itemButtons">
+                    <button
+                      onClick={() => handleEditClick(item.id, item.description)}
+                    >
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(item.id)}>
+                      Delete
+                    </button>
+                  </div>
                 </div>
               )}
             </li>

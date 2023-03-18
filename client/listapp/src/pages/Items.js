@@ -103,6 +103,44 @@ export default function Items() {
     }
   };
 
+  const handleDelete = async (id) => {
+    let response = null;
+
+    try {
+      response = await fetch(`http://localhost:5050/lists/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+    } catch (FetchError) {
+      setMessage("Could not make a fetch");
+      return;
+    }
+
+    try {
+      if (response.status === 400) {
+        const error = await response.text();
+        setMessage(error);
+        return;
+      }
+
+      if (response.status === 404) {
+        const error = await response.text();
+        setMessage(error);
+        return;
+      }
+
+      if (response.status === 200) {
+        setMessage("List deleted!");
+        getAllLists(); // Refresh the list of list
+      }
+    } catch (Error) {
+      setMessage("Something went wrong!");
+    }
+  };
+
   return (
     <>
       <div className="header">
@@ -111,14 +149,18 @@ export default function Items() {
       </div>
       <h1>Create a new list</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="listName"></label>
-        <input
-          type="text"
-          value={listName}
-          onChange={(event) => setListName(event.target.value)}
-          placeholder="List name"
-        ></input>
-        <button type="submit">Create list</button>
+        <div className="addList">
+          <label htmlFor="listName"></label>
+          <input
+            type="text"
+            value={listName}
+            onChange={(event) => setListName(event.target.value)}
+            placeholder="List name"
+          ></input>
+          <button className="addListBtn" type="submit">
+            Create list
+          </button>
+        </div>
       </form>
       <div>
         <h1>Your lists</h1>
@@ -126,7 +168,13 @@ export default function Items() {
         <ul className="listWrapper">
           {list.map((listItem) => (
             <div key={listItem.id} className="listCard">
-              <h2>{listItem.name}</h2>
+              <div className="titleAndButton">
+                <h2>{listItem.name}</h2>
+                <button onClick={() => handleDelete(listItem.id)}>
+                  Delete list
+                </button>
+              </div>
+
               <Item listId={listItem.id} />
             </div>
           ))}

@@ -125,7 +125,7 @@ function Home() {
   return (
     <div className="Home">
       <img className="App-logo" src={check} alt="checkbox" />
-      <h1>Welcome to CheckMate</h1>
+      <h1>Welcome to CheckMate!</h1>
 
       {isLogin ? <h2>Login</h2> : <h2>Register</h2>}
       <form onSubmit={handleSubmit}>

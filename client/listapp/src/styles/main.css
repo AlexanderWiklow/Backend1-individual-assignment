@@ -1,7 +1,8 @@
 .App {
+  min-height: 100vh;
+  height: auto;
   padding: 3rem;
   text-align: center;
-  height: 100vh;
   color: white;
 }
 
@@ -53,10 +54,365 @@
 }
 .App {
   background: #2d2d2d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .listCard {
-  height: 10rem;
-  max-width: 20rem;
-  background-color: grey;
+  min-height: 10rem;
+  height: auto;
+  width: 20rem;
+  background-color: #4b4949;
+  margin: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 0.25rem;
+}
+.listCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #565656;
+}
+.listCard h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+.listCard button {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.listCard button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.listCard .titleAndButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todoWrapper {
+  color: black;
+  background-color: #8f3434;
+  min-height: 2rem;
+  height: auto;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.25rem;
+}
+.todoWrapper ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.todoWrapper ul li {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+.todoWrapper ul li button {
+  margin-left: 0.5rem;
+}
+.todoWrapper input[type=checkbox] {
+  margin-right: 0.5rem;
+}
+.todoWrapper strike {
+  color: #4b4a4a;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.header h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 3rem;
+  line-height: 1.5;
+}
+
+.addList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addList .addListBtn {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.addList .addListBtn button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.itemForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.itemForm button {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.itemForm button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.todoWrapper {
+  color: black;
+  background-color: rgb(115, 115, 115);
+  min-height: 2rem;
+  height: auto;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+.todoWrapper ul {
+  padding: 0;
+}
+.todoWrapper ul li {
+  list-style: none;
+  text-decoration: none;
+  text-align: left;
+}
+.todoWrapper ul li button {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.todoWrapper ul li button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 4px;
+}
+.todoItem .itemButtons {
+  display: flex;
+}
+.todoItem .itemButtons button {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.todoItem .itemButtons button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.friendListCard {
+  min-height: 10rem;
+  height: auto;
+  width: 20rem;
+  background-color: #4b4949;
+  margin: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 0.25rem;
+}
+.friendListCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #565656;
+}
+.friendListCard h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+.friendListCard button {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.friendListCard button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.friendListCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friendListWrapper {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  list-style: none;
+}
+
+.friendListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: white;
+  width: 80%;
+  color: black;
+}
+
+.addFriend {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addFriend button {
+  margin: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.addFriend button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.recentUsers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  list-style: none;
+}
+.recentUsers .recentlyLoggedInUsers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  list-style: none;
+}
+.recentUsers .recentlyLoggedInUsers img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }/*# sourceMappingURL=main.css.map */

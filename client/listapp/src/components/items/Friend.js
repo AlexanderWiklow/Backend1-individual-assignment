@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import fetchEndpoint from "../util/api";
+import UserImg from "../../assets/user.png";
 
 export default function Friend() {
   const [friend, setFriend] = useState("");
   const [friends, setFriends] = useState([]);
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState([]);
-  const [friendList, setFriendList] = useState({});
+  const [friendList, setFriendList] = useState([]);
+
+  const apiUrl = "http://localhost:5050";
 
   async function getAllFriends() {
     let response = null;
 
     try {
-      response = await fetch("http://localhost:5050/friends", {
+      response = await fetch(`http://localhost:5050/friends`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +66,7 @@ export default function Friend() {
     let response = null;
 
     try {
-      response = await fetch("http://localhost:5050/friends", {
+      response = await fetch(`${apiUrl}/friends`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -138,38 +141,55 @@ export default function Friend() {
   }
 
   async function getFriendList() {
-    const response = await fetchEndpoint(
-      "http://localhost:5050/friends/list",
-      "GET",
-      {
-        "Content-Type": "application/json",
-      },
-      "include"
-    );
+    let response = null;
 
-    if (response.error) {
-      setMessage(response.error);
-      setFriendList({});
+    try {
+      response = await fetch(`http://localhost:5050/friends/list`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+    } catch (error) {
+      setMessage("Could not make a fetch");
+      setFriendList([]);
       return;
     }
 
-    const friendList = {};
-    const data = response.data;
-    data.forEach((list) => {
-      if (!friendList[list.user_id]) {
-        friendList[list.user_id] = [list];
-      } else {
-        friendList[list.user_id].push(list);
+    try {
+      if (response.status === 400) {
+        const error = await response.text();
+        setMessage(error);
+        setFriendList([]);
+        return;
       }
-    });
-    setFriendList(friendList);
-    setMessage("");
+
+      if (response.status === 404) {
+        const error = await response.text();
+        setMessage(error);
+        setFriendList([]);
+        return;
+      }
+
+      if (response.status === 200) {
+        const friends = await response.json();
+
+        // items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+        setFriendList(friends);
+        setMessage("");
+      }
+    } catch (error) {
+      setMessage("Something went wrong!");
+      setFriendList([]);
+    }
   }
 
   return (
     <div>
       <h1>Your friends lists</h1>
-      <form onSubmit={addFriend}>
+      <form className="addFriend" onSubmit={addFriend}>
         <input
           type="text"
           placeholder="Friend username"
@@ -178,34 +198,35 @@ export default function Friend() {
         />
         <button type="submit">Add friend</button>
       </form>
-      {friends.map((friend) => (
+      {users.map((friend) => (
         <div key={friend.id}>
-          <div className="listWrapper">
-            <div className="friendListCard">
+          <div className="friendListCard">
+            <div className="">
               <h2>{friend.username}</h2>
               <ul>
-                <p>LISTS:</p>{" "}
-                {users.map((user) => (
-                  <li key={user.id}>
-                    {friendList[user.id] && (
-                      <ul>
-                        {friendList[user.id].map((list) => (
-                          <li key={list.id}>{list.name}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
+                <p>LISTS:</p>
+                {friendList.map((list) => {
+                  if (list.user_id === friend.id) {
+                    return (
+                      <li className="friendListItem" key={list.id}>
+                        {list.name}
+                      </li>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </ul>
             </div>
           </div>
         </div>
       ))}
 
-      <p>Recently logged in users:</p>
-      <ul>
+      <h3>Recently logged in users:</h3>
+      <ul className="recentUsers">
         {users.map((user) => (
           <div key={user.id} className="recentlyLoggedInUsers">
+            <img src={UserImg} alt="user" />
             <li>{user.username}</li>
           </div>
         ))}

@@ -1,29 +1,140 @@
 .friendListCard {
   min-height: 10rem;
   height: auto;
-  max-width: 20rem;
-  min-width: 20rem;
-  background-color: grey;
-  //   gap: 2rem;
-  //   margin: 1rem;
-  color: black;
-  //   background-color: salmon;
-  //   min-height: 2rem;
-  height: auto;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  & ul {
+  width: 20rem;
+  background-color: #4b4949;
+  margin: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 0.25rem;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #565656;
+  }
+
+  & h2 {
+    margin: 0;
     padding: 0;
-    & li {
-      list-style: none;
-      text-decoration: none;
-      text-align: left;
-    }
+    font-size: 2rem;
+    line-height: 1.5;
+  }
+
+  & button {
+    margin: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px 7px;
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+    background-origin: border-box;
+    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+      inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  & button:focus {
+    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+      0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+      0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 }
 
-.recentlyLoggedInUsers {
-  //   background-color: red;
+.friendListWrapper {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: #4b91f7;
   text-decoration: none;
   list-style: none;
+}
+
+.friendListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: white;
+  width: 80%;
+  color: black;
+}
+
+.addFriend {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & button {
+    margin: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px 7px;
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+    background-origin: border-box;
+    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+      inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  & button:focus {
+    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+      0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+      0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+  }
+}
+
+.recentUsers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  // background-color: #4b91f7;
+  text-decoration: none;
+  list-style: none;
+
+  .recentlyLoggedInUsers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    // background-color: #4b91f7;
+    text-decoration: none;
+    list-style: none;
+
+    & img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  }
 }

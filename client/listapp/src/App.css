@@ -1,7 +1,8 @@
 .App {
+  min-height: 100vh;
+  height: auto;
   padding: 3rem;
   text-align: center;
-  height: 100vh;
   color: white;
 }
 
