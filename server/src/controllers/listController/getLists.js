@@ -1,3 +1,5 @@
+// Description: Get all lists for a user
+
 const { pool } = require("../../../config");
 
 exports.getList = (req, res) => {

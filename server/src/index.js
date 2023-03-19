@@ -28,8 +28,7 @@ server.use("/authentication", authenticationRoute);
 
 // checkAuthentication is a middleware that checks if the user is logged in or not with the help of the authToken cookie. If the user is not logged in, the user will not be able to access the routes below.
 server.use("/friends", checkAuthentication, friendRoute);
-server.use("/", checkAuthentication, listRoute);
-server.use("/", checkAuthentication, itemRoute);
+server.use("/", checkAuthentication, listRoute, itemRoute);
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -1,10 +1,12 @@
+// Description: Get all friends of a user
+
 const { pool } = require("../../../config");
 
 exports.getFriend = (req, res) => {
   const userId = req.loggedInUser.id;
 
   pool.query(
-    "SELECT username FROM user WHERE id IN (SELECT friend_id FROM friend WHERE user_id = ?)",
+    "SELECT username, id FROM user WHERE id IN (SELECT friend_id FROM friend WHERE user_id = ?)",
     [userId],
     (err, results) => {
       if (err) {

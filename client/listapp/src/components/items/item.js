@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 export default function Items({ listId }) {
   const [items, setItems] = useState([]);
@@ -7,11 +9,13 @@ export default function Items({ listId }) {
   const [editText, setEditText] = useState("");
   const [editing, setEditing] = useState(false);
 
+  const apiUrl = "http://localhost:5050";
+
   async function getAllItems() {
     let response = null;
 
     try {
-      response = await fetch(`http://localhost:5050/lists/${listId}/items`, {
+      response = await fetch(`${apiUrl}/lists/${listId}/items`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +67,7 @@ export default function Items({ listId }) {
     let response = null;
 
     try {
-      response = await fetch(`http://localhost:5050/lists/${listId}/items`, {
+      response = await fetch(`${apiUrl}/lists/${listId}/items`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,10 +105,14 @@ export default function Items({ listId }) {
       }
 
       if (response.status === 200) {
-        setMessage("item created!");
         setDescription("");
 
-        getAllItems(listId); // Refresh the list of list
+        setMessage("item created!");
+
+        alert("Item created!");
+
+        getAllItems(); // Refresh the list of list
+
         setEditing(false);
       }
     } catch (Error) {
@@ -116,16 +124,13 @@ export default function Items({ listId }) {
     let response = null;
 
     try {
-      response = await fetch(
-        `http://localhost:5050/lists/${listId}/items/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      response = await fetch(`${apiUrl}/lists/${listId}/items/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
     } catch (error) {
       setMessage("Could not make a fetch");
       return;
@@ -147,7 +152,9 @@ export default function Items({ listId }) {
       }
 
       if (response.status === 200) {
+        // toast.success("Item deleted from toast!");
         setMessage("item deleted!");
+        alert("Item deleted!");
         getAllItems(); // Refresh the list of list
       }
     } catch (Error) {
@@ -164,19 +171,16 @@ export default function Items({ listId }) {
     let response = null;
 
     try {
-      response = await fetch(
-        `http://localhost:5050/lists/${listId}/items/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            description: editText,
-          }),
-        }
-      );
+      response = await fetch(`${apiUrl}/lists/${listId}/items/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          description: editText,
+        }),
+      });
     } catch (error) {
       setMessage("Could not make a fetch");
       console.log("error", error);
@@ -213,7 +217,7 @@ export default function Items({ listId }) {
 
     try {
       response = await fetch(
-        `http://localhost:5050/lists/${listId}/items/${id}/completed`,
+        `${apiUrl}/lists/${listId}/items/${id}/completed`,
         {
           method: "PATCH",
           headers: {
@@ -265,9 +269,8 @@ export default function Items({ listId }) {
         />
         <button type="submit">Create</button>
       </form>
+
       <div className="todoWrapper">
-        {/* <p>Todos:</p> */}
-        {message ? <p>{message}</p> : null}
         <ul>
           {items.map((item) => (
             <li key={item.id}>
@@ -290,12 +293,14 @@ export default function Items({ listId }) {
                       handleCheckboxClick(item.id, item.completed)
                     }
                   />
+                  <div className="itemDesc">
+                    {item.completed ? (
+                      <strike>{item.description}</strike>
+                    ) : (
+                      item.description
+                    )}
+                  </div>
 
-                  {item.completed ? (
-                    <strike>{item.description}</strike>
-                  ) : (
-                    item.description
-                  )}
                   <div className="itemButtons">
                     <button
                       onClick={() => handleEditClick(item.id, item.description)}

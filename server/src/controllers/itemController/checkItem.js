@@ -1,6 +1,7 @@
+// Description: Update a todo with the given ID for the logged in user
+
 const { pool } = require("../../../config");
 
-// Update a todo with the given ID for the logged in user
 exports.checkItem = async (req, res) => {
   const list_id = parseInt(req.params.list_id, 10);
   const id = parseInt(req.params.id, 10);
@@ -12,9 +13,9 @@ exports.checkItem = async (req, res) => {
   pool.execute(query, [completed, id, list_id], async (error, result) => {
     if (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).send("Error updating item");
     } else {
-      res.send("Item updated!");
+      res.status(200).send("Item updated!");
     }
   });
 };

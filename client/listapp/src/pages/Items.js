@@ -8,11 +8,13 @@ export default function Items() {
   const [message, setMessage] = useState("");
   const [listName, setListName] = useState("");
 
+  const apiUrl = "http://localhost:5050";
+
   async function getAllLists() {
     let response = null;
 
     try {
-      response = await fetch("http://localhost:5050/lists", {
+      response = await fetch(`${apiUrl}/lists`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +56,6 @@ export default function Items() {
 
   useEffect(() => {
     getAllLists();
-    // getAllItems();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -63,7 +64,7 @@ export default function Items() {
     let response = null;
 
     try {
-      response = await fetch("http://localhost:5050/lists", {
+      response = await fetch(`${apiUrl}/lists`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,6 +96,7 @@ export default function Items() {
 
       if (response.status === 200) {
         setMessage("List created!");
+        alert("List created!");
         setListName("");
         getAllLists(); // Refresh the list of list
       }
@@ -107,7 +109,7 @@ export default function Items() {
     let response = null;
 
     try {
-      response = await fetch(`http://localhost:5050/lists/${id}`, {
+      response = await fetch(`${apiUrl}/lists/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -134,6 +136,7 @@ export default function Items() {
 
       if (response.status === 200) {
         setMessage("List deleted!");
+        alert("List deleted!");
         getAllLists(); // Refresh the list of list
       }
     } catch (Error) {

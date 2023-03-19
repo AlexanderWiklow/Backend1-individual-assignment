@@ -256,12 +256,18 @@
   outline: 0;
 }
 
+.itemDesc {
+  word-break: break-all;
+}
+
 .todoItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   border-radius: 4px;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 .todoItem .itemButtons {
   display: flex;

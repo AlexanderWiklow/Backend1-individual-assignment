@@ -1,3 +1,5 @@
+// Description: Get list by id
+
 const { pool } = require("../../../config");
 
 exports.getListById = (req, res) => {

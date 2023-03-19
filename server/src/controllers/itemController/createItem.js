@@ -1,7 +1,7 @@
-// const express = require("express");
+// Description: Create a new item for the specified list
+
 const { pool } = require("../../../config");
 
-// Create a new item for the specified list
 exports.createItem = async (req, res) => {
   const { description, completed, list_id } = req.body;
 
@@ -13,9 +13,10 @@ exports.createItem = async (req, res) => {
     async (error, result) => {
       if (error) {
         console.log(error);
-        res.sendStatus(500);
+        res.status(500).send("Error creating item");
       } else {
-        res.send("Item created!");
+        // res.send("Item created!");
+        res.status(200).json(result);
       }
     }
   );

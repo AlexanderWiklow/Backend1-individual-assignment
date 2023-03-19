@@ -1,6 +1,7 @@
+// Description: Create a new list for the authenticated user
+
 const { pool } = require("../../../config");
 
-// Create a new list for the authenticated user
 exports.createList = async (req, res) => {
   const { name } = req.body;
   const userId = req.loggedInUser.id;
@@ -10,9 +11,9 @@ exports.createList = async (req, res) => {
   pool.execute(query, [name, userId], async (error, result) => {
     if (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).send("Error creating list");
     } else {
-      res.send("List created!");
+      res.status(200).json(result);
     }
   });
 };

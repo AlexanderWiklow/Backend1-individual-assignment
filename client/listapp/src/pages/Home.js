@@ -12,6 +12,8 @@ function Home() {
   const [isLogin, setIsLogin] = useState(true);
   const [message, setMessage] = useState("");
 
+  const apiUrl = "http://localhost:5050";
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isLogin) {
@@ -20,7 +22,7 @@ function Home() {
       let response = null;
 
       try {
-        response = await fetch("http://localhost:5050/authentication/login", {
+        response = await fetch(`${apiUrl}/authentication/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -35,13 +37,6 @@ function Home() {
         setMessage("Could not make a fetch");
         return;
       }
-
-      console.log(
-        "Logging in with username:",
-        username,
-        "and password:",
-        password
-      );
 
       try {
         if (response.status === 400) {
@@ -60,33 +55,29 @@ function Home() {
           return;
         }
         if (response.status === 200) {
-          setMessage("Successful register!");
+          setMessage("Successful login!");
+          // Assuming the login is successful, redirect to the items page
+          navigate("/items");
         }
       } catch (Error) {
         setMessage("Something went wrong!");
       }
-
-      // Assuming the login is successful, redirect to the items page
-      navigate("/items");
     } else {
       // Handle register submit
 
       let response = null;
 
       try {
-        response = await fetch(
-          "http://localhost:5050/authentication/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: username,
-              password: password,
-            }),
-          }
-        );
+        response = await fetch(`${apiUrl}/authentication/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        });
       } catch (FetchError) {
         console.log("Could not make a fetch");
         return;
@@ -106,8 +97,9 @@ function Home() {
         if (response.status === 409) {
           setMessage("User already exists!");
         }
-        if (response.status === 200) {
+        if (response.status === 201) {
           setMessage("Successful register!");
+          alert("Successful register!");
         }
       } catch (Error) {
         setMessage("Something went wrong!");

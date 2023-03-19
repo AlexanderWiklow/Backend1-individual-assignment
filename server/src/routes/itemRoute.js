@@ -16,17 +16,11 @@ const {
 } = require("../../src/controllers/itemController/updateItemCompleteStatus.js");
 const itemRoute = express.Router();
 
-// Get all items in all todo lists
-// itemRoute.get("/lists/items", getAllItems);
-
 // Get all items in a specific todo list
 itemRoute.get("/lists/:listId/items", getAllItems);
 
 // Create a new item in a specific todo list
 itemRoute.post("/lists/:listId/items", createItem);
-
-// // Get a specific item in a specific todo list
-// itemRoute.get("/lists/:listId/items/:itemId", itemController.getItem);
 
 // Update a specific item in a specific todo list
 itemRoute.patch("/lists/:listId/items/:itemId", updateItem);

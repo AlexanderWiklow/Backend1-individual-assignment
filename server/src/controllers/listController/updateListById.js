@@ -1,6 +1,7 @@
+// Update a list by id
+
 const { pool } = require("../../../config");
 
-// Update a list by id
 exports.updateListById = (req, res) => {
   const userId = req.loggedInUser.id;
   const listId = parseInt(req.params.listId, 10);
@@ -17,11 +18,13 @@ exports.updateListById = (req, res) => {
     (error, result) => {
       if (error) {
         console.error(error);
-        res.sendStatus(500);
-      } else if (result.affectedRows === 0) {
+        res.status(500).send("Error updating list");
+      }
+      // affectedRows is the number of rows that were changed by the query
+      else if (result.affectedRows === 0) {
         res.status(404).send("List not found");
       } else {
-        res.send("List updated!");
+        res.status(200).json(result);
       }
     }
   );

@@ -1,6 +1,7 @@
+// Description: Delete a list by id
+
 const { pool } = require("../../../config");
 
-// Delete a list by id
 exports.deleteListById = async (req, res) => {
   const id = parseInt(req.params.listId, 10);
   const userId = req.loggedInUser.id;
@@ -15,9 +16,9 @@ exports.deleteListById = async (req, res) => {
   pool.execute(query, [id, userId], async (error, result) => {
     if (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).send("Error deleting list");
     } else {
-      res.send("List deleted!");
+      res.status(200).json(result);
     }
   });
 };

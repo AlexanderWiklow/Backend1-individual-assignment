@@ -1,7 +1,7 @@
-// itemController.js
+// Description: Update the completed status of a todo item
+
 const { pool } = require("../../../config");
 
-// Update the completed status of a todo item
 exports.updateItemCompleteStatus = async (req, res) => {
   const listId = parseInt(req.params.listId, 10);
   const itemId = parseInt(req.params.itemId, 10);
@@ -13,9 +13,9 @@ exports.updateItemCompleteStatus = async (req, res) => {
   pool.execute(query, [completed, itemId, listId], async (error, result) => {
     if (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).send("Error updating item");
     } else {
-      res.send("Item completed status updated!");
+      res.status(200).json(result);
     }
   });
 };

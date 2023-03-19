@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import fetchEndpoint from "../util/api";
 import UserImg from "../../assets/user.png";
 
 export default function Friend() {
@@ -11,11 +10,13 @@ export default function Friend() {
 
   const apiUrl = "http://localhost:5050";
 
+  // Get all friends from the database and set them to the state variable friends
   async function getAllFriends() {
     let response = null;
 
     try {
-      response = await fetch(`http://localhost:5050/friends`, {
+      // Make a fetch to the backend to get all friends from the database and set the response to the variable response
+      response = await fetch(`${apiUrl}/friends`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +31,7 @@ export default function Friend() {
 
     try {
       if (response.status === 400) {
+        // If the response status is 400, set the error message to the state variable message and set the state variable friends to an empty array and return
         const error = await response.text();
         setMessage(error);
         setFriends([]);
@@ -56,12 +58,17 @@ export default function Friend() {
     }
   }
 
+  // useEffect is a hook that runs a function when the component is mounted and when the state variables in the array changes (in this case, the state variable friends) and the function is run when the component is mounted because the array is empty ([])
   useEffect(() => {
+    // Run the function getAllFriends when the component is mounted and when the state variable friends changes (in this case, when a friend is added or deleted)
     getAllFriends();
+
+    // Run the function getAllUsers when the component is mounted and when the state variable friends changes (in this case, when a friend is added or deleted)
     getAllUsers();
     getFriendList();
   }, []);
 
+  // Add a friend to the database and set the response to the state variable message. It is async because it uses await to wait for the response from the backend  before continuing to the next line of code (the try/catch block).
   async function addFriend() {
     let response = null;
 
@@ -95,16 +102,18 @@ export default function Friend() {
         setMessage(message);
         setFriend("");
         getAllFriends();
+        alert("Friends added");
       }
     } catch (FetchError) {
       setMessage("Something went wrong!");
     }
   }
 
+  //
   async function getAllUsers() {
     let response = null;
     try {
-      response = await fetch("http://localhost:5050/friends/users", {
+      response = await fetch(`${apiUrl}/friends/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -144,7 +153,7 @@ export default function Friend() {
     let response = null;
 
     try {
-      response = await fetch(`http://localhost:5050/friends/list`, {
+      response = await fetch(`${apiUrl}/friends/list`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -173,11 +182,9 @@ export default function Friend() {
       }
 
       if (response.status === 200) {
-        const friends = await response.json();
+        const friendList = await response.json();
 
-        // items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-        setFriendList(friends);
+        setFriendList(friendList);
         setMessage("");
       }
     } catch (error) {
@@ -198,7 +205,7 @@ export default function Friend() {
         />
         <button type="submit">Add friend</button>
       </form>
-      {users.map((friend) => (
+      {friends.map((friend) => (
         <div key={friend.id}>
           <div className="friendListCard">
             <div className="">

@@ -1,6 +1,7 @@
+// Description: This file contains the updateItem function which updates an item in the database.
+
 const { pool } = require("../../../config");
 
-// Update a todo with the given ID for the logged in user
 exports.updateItem = async (req, res) => {
   const listId = parseInt(req.params.listId, 10);
   const itemId = parseInt(req.params.itemId, 10);
@@ -12,9 +13,9 @@ exports.updateItem = async (req, res) => {
   pool.execute(query, [description, itemId, listId], async (error, result) => {
     if (error) {
       console.log(error);
-      res.sendStatus(500);
+      res.status(500).send("Error updating item");
     } else {
-      res.send("Item updated!");
+      res.status(200).json(result);
     }
   });
 };
