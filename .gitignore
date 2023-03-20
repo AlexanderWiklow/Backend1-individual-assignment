@@ -1,5 +1,7 @@
-server/.env
+.env
 
-server/config.js
+server/node_modules
+
+client/listapp/node_modules
 
 # Individuella Uppgiften 2/TODO-Application/server/.env

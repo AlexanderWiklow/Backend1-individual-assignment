@@ -28,8 +28,8 @@ exports.login = async (req, res) => {
   const { username, password } = validatedUser.value;
 
   // query MySQL database to find user
-  const query = `SELECT * FROM user WHERE username = ?`;
-  pool.execute(query, [username], async (error, results) => {
+  const sqlQuery = `SELECT * FROM user WHERE username = ?`;
+  pool.execute(sqlQuery, [username], async (error, results) => {
     // if there is an error, send a 500 Internal Server Error response
     if (error) {
       console.error(error);

@@ -1,5 +1,3 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
 import { useState } from "react";
 import check from "../../src/assets/check1.png";
 import { useNavigate } from "react-router-dom";
@@ -104,13 +102,6 @@ function Home() {
       } catch (Error) {
         setMessage("Something went wrong!");
       }
-
-      // console.log(
-      //   "Registering with username:",
-      //   username,
-      //   "and password:",
-      //   password
-      // );
     }
   };
 

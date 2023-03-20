@@ -15,7 +15,6 @@ exports.createItem = async (req, res) => {
         console.log(error);
         res.status(500).send("Error creating item");
       } else {
-        // res.send("Item created!");
         res.status(200).json(result);
       }
     }

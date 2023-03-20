@@ -32,6 +32,7 @@ export default function Friend() {
     try {
       if (response.status === 400) {
         // If the response status is 400, set the error message to the state variable message and set the state variable friends to an empty array and return
+
         const error = await response.text();
         setMessage(error);
         setFriends([]);

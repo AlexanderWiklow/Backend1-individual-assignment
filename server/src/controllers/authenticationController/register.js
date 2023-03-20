@@ -1,6 +1,9 @@
 // This file contains the logic for registering a new user
 
 const { pool } = require("../../../config");
+// import dotenv from "dotenv";
+require("dotenv").config();
+
 const {
   validateUsernamePassword,
 } = require("../validations/validateUsernamePassword");
