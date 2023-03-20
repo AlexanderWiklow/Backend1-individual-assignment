@@ -1,8 +1,8 @@
 # Todo App
 
-![](./src/assets/todoscreen.png)
+![](./client/listapp/src/assets/todoscreen.png)
 
-"uild a To-Do application where a user can create a to-do list, add items to their list, mark items as completed, and be able to remove items from their list.
+Build a To-Do application where a user can create a to-do list, add items to their list, mark items as completed, and be able to remove items from their list.
 
 Build a server and a website. You will not be judged on the appearance of the page, so it can be plain HTML, completely without styling. The purpose of the page is to show that you can connect a front-end with a back-end.
 
