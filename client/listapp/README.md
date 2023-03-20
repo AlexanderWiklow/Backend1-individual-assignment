@@ -1,70 +1,117 @@
-# Getting Started with Create React App
+# Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![](./src/assets/todoscreen.png)
 
-## Available Scripts
+"uild a To-Do application where a user can create a to-do list, add items to their list, mark items as completed, and be able to remove items from their list.
 
-In the project directory, you can run:
+Build a server and a website. You will not be judged on the appearance of the page, so it can be plain HTML, completely without styling. The purpose of the page is to show that you can connect a front-end with a back-end.
 
-### `npm start`
+The user's lists should be saved in a database.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Todo App](#todo-app)
+  - [Table of contents](#table-of-contents)
+    - [The challenge](#the-challenge)
+    - [Built with](#built-with)
+  - [Author](#author)
 
-### `npm test`
+### The challenge
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Users should be able to:
 
-### `npm run build`
+- Register yourself
+- Log in
+- Create a to-do list (if you're logged in)
+- Add items to a to-do list (if you're logged in)
+- Remove items from a to-do list (if you're logged in)
+- Edit items in a to-do list (if you're logged in)
+- If you log in as a user, you should be able to leave the website and come back without having to log in again. Use cookies for this.
+- You should be able to have multiple lists, and you should also be able to add other users as friends, and then see their lists.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Requirements:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- You should be able to register yourself.
+- You should be able to log in and stay logged in (using cookies).
+- You should be able to create a to-do list (if you're logged in).
+- You should be able to add items to a to-do list (if you're logged in).
+- You should be able to remove items from a to-do list (if you're logged in).
+- You should be able to edit items in a to-do list (it's enough to be able to mark items as done/undone) (if you're logged in).
+- All your endpoints should use validation. I should only be able to send information that is used by your endpoint.
+- The client should receive the correct status codes.
+- The client should receive the correct status messages.
+  -You must use the correct HTTP methods. It should not be a POST when deleting a resource.
+- You should use at least one router (Express.Router).
+- You must have a good project structure. It's not okay to have all files in one folder.
+- There should not be console.logs that don't belong to the code design.
+- There should not be commented-out code (comments are okay).
+  -There should be a website that implements all the functionality that your server offers. Postman is not enough.
+- You should store the user's information in a database; storing it on the server is not enough.
+- You should be protected against SQL injections (using prepared statements).
+- You should use at least one custom middleware.
+  Sensitive information in .env files should be hidden (for example, login information for the database).
+- You should store hashed passwords.
+- You should be able to add friends (the friend must be registered on the site).
+- You should be able to see your friends' to-do lists.
+- You should use JWT or another similar token for authentication.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- ### Links
 
-### `npm run eject`
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com) -->
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<!-- ## My process -->
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Built with
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- SCSS
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [Node.js](https://nodejs.org/en) - JavaScript runtime environment
+- [Express](https://expressjs.com/) - Web framework for Node.js
+- [MySQL](https://www.mysql.com/) - Relational database management system
+<!-- ### What I learned
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
 
-## Learn More
+To see how you can add code snippets, see below:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```html
+<h1>Some HTML code I'm proud of</h1>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```css
+.proud-of-this-css {
+  color: papayawhip;
+}
+```
 
-### Code Splitting
+```js
+const proudOfThisFunc = () => {
+  console.log("🎉");
+};
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
 
-### Analyzing the Bundle Size
+**Note: Delete this note and the content within this section and replace with your own learnings.**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Continued development
 
-### Making a Progressive Web App
+Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
 
-### Advanced Configuration
+### Useful resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
+- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 
-### Deployment
+**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.** -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Author
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Website - [Alexander Wiklöw](https://alexanderwiklow.github.io/Portfolio2023/)
