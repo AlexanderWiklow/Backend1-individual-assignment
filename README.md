@@ -8,9 +8,31 @@ Build a server and a website. You will not be judged on the appearance of the pa
 
 The user's lists should be saved in a database.
 
+## Getting Started
+
+Step 1 install dependencies via terminal.
+
+    npm install
+
+Step 2 add ".env" file in the root of the project, with this data, fill empty with your info:
+
+    DATABASE_USER = 'root'
+    DATABASE_PASSWORD = ''
+    DATABASE_HOST = '127.0.0.1'
+    DATABASE_DATABASE = 'Alexander_Wiklow_TODODB'
+
+Step 3 in listapp folder:
+
+    npm start
+
+step 4 in server folder:
+
+    nodemon index.js
+
 ## Table of contents
 
 - [Todo App](#todo-app)
+  - [Getting Started](#getting-started)
   - [Table of contents](#table-of-contents)
     - [The challenge](#the-challenge)
     - [Built with](#built-with)
