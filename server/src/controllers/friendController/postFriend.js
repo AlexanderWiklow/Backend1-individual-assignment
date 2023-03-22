@@ -1,10 +1,21 @@
 // Description: This file contains the postFriend function which is used to add a new friend to the database.
+const {
+  validatePostFriend,
+} = require("../validations/Friend/validatePostFriend");
 
 const { pool } = require("../../../config");
 
 exports.postFriend = (req, res) => {
   const userId = req.loggedInUser.id;
   const friendUsername = req.body.friendUsername;
+
+  // Validate the request body
+  const { error } = validatePostFriend(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+
+  // bara friend body, username. Kolla att det inte är tomt.
 
   // First, find the friend's user ID
   pool.query(

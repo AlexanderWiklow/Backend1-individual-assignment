@@ -1,10 +1,19 @@
 // Description: Delete a todo with the given ID for the logged in user
+const {
+  validateDeleteItem,
+} = require("../validations/Items/validateDeleteItem");
 
 const { pool } = require("../../../config");
 
 exports.deleteItem = async (req, res) => {
   const listId = parseInt(req.params.listId, 10);
   const itemId = parseInt(req.params.itemId, 10);
+
+  const { error } = validateDeleteItem(req.params);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
 
   const query = `DELETE FROM list_item WHERE id = ? AND list_id = ?`;
 

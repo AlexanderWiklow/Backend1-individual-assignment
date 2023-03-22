@@ -1,22 +1,18 @@
 // Description: Get all items for the specified list
+const {
+  validateGetAllItems,
+} = require("../validations/Items/validateGetAllItems");
 
 const { pool } = require("../../../config");
 
 exports.getAllItems = async (req, res) => {
-  // Validate if user enters body or query in the request.
-  const query = req.query;
-  const body = req.body;
-
-  const queryKeys = Object.keys(query);
-  const bodyKeys = Object.keys(body);
-
-  if (queryKeys.length > 0 || bodyKeys.length > 0) {
-    res.status(406).send("Please do not send in data");
-    alert("Please do not send in data");
-    return;
-  }
-
   const listId = parseInt(req.params.listId, 10);
+
+  const { error } = validateGetAllItems(req.params);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
 
   const sqlQuery = `SELECT * FROM list_item WHERE list_id = ?`;
 

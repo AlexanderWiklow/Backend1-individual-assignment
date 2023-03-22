@@ -1,10 +1,19 @@
 // Description: Create a new list for the authenticated user
 
+const {
+  validateCreateList,
+} = require("../validations/Lists/validateCreateList");
 const { pool } = require("../../../config");
 
 exports.createList = async (req, res) => {
   const { name } = req.body;
   const userId = req.loggedInUser.id;
+
+  const { error } = validateCreateList(req.body);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
 
   const query = `INSERT INTO list (name, user_id) VALUES (?, ?)`;
 
